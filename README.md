@@ -116,5 +116,4 @@ Initially, it is necessary to apply the normalization processes and the applicat
     * Institute of Mathematical and Computer Sciences, University of São Paulo (USP), São Carlos, SP, Brazil.
     * *Email: felippe_pires@usp.br*
 * **Robson L. F. Cordeiro**
-    * School of Computer Science, Carnegie Mellon University (CMU), Pittsburgh, PA, USA.
-    * *Email: robsonc@andrew.cmu.edu*
+    * Institute of Mathematical and Computer Sciences, University of São Paulo (USP), São Carlos, SP, Brazil.

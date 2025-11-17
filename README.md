@@ -22,39 +22,46 @@ A summary of the file structure can be found in the following directory tree.
 
 ```bash
 EvaluateDatasets
-├── files                  \\ Main container for all project assets.
-│   ├── code               \\ Contains all source code and analysis scripts.
-│   │   ├── profiling      \\ Scripts to extract meta-features from each dataset.
-│   │   │   ├── Run_Profiler.ipynb   \\ Notebook for calculating statistical metrics (dim, sparsity, etc.).
-│   │   │   └── Calculate_Metrics.py \\ Script for calculating data complexity metrics.
+├── files                       \\ Main container for all project assets.
+│   ├── code                    \\ Contains all source code and analysis scripts.
+│   │   ├── based_experiments   \\ Script for evaluating datasets.
+│   │   │   ├── Evaluate.py     \\ Execution of detection algorithms on the datasets.
+│   │   │   ├── Metrics.ipynb   \\ Calculation of metrics based on algorithm results.
+│   │   │   ├── PairPlots_metrics.ipynb \\ Generating pair plots with the algorithm results.
+│   │   │   ├── PrepareDataset.ipynb    \\ Script to prepare datasets before algorithm processing.
+│   │   │   └── Visualization.ipynb     \\ Script to produce comparative tables of instances and projections of the worst-performing datasets.
 │   │   │
-│   │   ├── benchmarking   \\ Scripts to run probe algorithms on the datasets.
-│   │   │   ├── Run_LOF.py
-│   │   │   ├── Run_IForest.py
-│   │   │   └── ...
-│   │   │
-│   │   └── analysis       \\ Jupyter notebooks for analyzing the profiling results.
-│   │       ├── Cluster_Datasets.ipynb \\ Notebook for clustering datasets by similarity.
-│   │       ├── Plot_Difficulty.ipynb  \\ Notebook for generating difficulty vs. outlier type plots.
-│   │       └── Redundancy_Matrix.ipynb \\ Notebook for creating the rank correlation matrix.
+│   │   └── conversion_methods              \\ Script for experiments using methods to convert classification datasets into outlier detection datasets.
+│   │       ├── Convert_Methods.ipynb       \\ Apply the conversion methods to the datasets.
+│   │       ├── Critical_Diagram.ipynb      \\ Compare the methods using critical difference diagrams.
+│   │       ├── EvaluateConvert.py          \\ Apply the detection algorithms to the converted datasets.
+│   │       └── Metrics.ipynb               \\ Calculation of metrics based on algorithm results.
+│   │    
 │   │
-│   ├── database           \\ Stores all datasets used in the experiments.
-│   │   ├── raw            \\ Original datasets downloaded from their sources.
-│   │   │   ├── uci
-│   │   │   ├── kaggle
-│   │   │   └── ...
-│   │   └── processed      \\ Pre-processed and standardized datasets (.npz format).
+│   ├── datasets                    \\ Stores all datasets used in the experiments.
+│   │   ├── conversion_methods      \\ Datasets used in experiments with conversion methods
+│   │   │   ├── binary              \\ BIN and BINDOWN
+│   │   │   └── non_binary          \\ EXC, EXCDOWN, GRO and GRODOWN
+│   │   |
+│   │   └── evaluation              \\ Datasets used in the experiments to evaluate the quality of the outlier detection datasets.
+│   │       ├── ADBench
+│   │       ├── literature
+│   │       ├── odds
+│   │       ├── processed           \\ Directory for storing datasets after preprocessing.
+│   │       ├── real
+│   │       └── semantic
 │   │
-│   └── results            \\ Stores all output files from the experiments.
-│       ├── profiles       \\ Metrics and meta-features extracted from each dataset.
-│       │   └── dataset_metrics.csv \\ The profile of all 85 datasets.
+│   └── results                     \\ Stores all output files from the experiments. The directory is populated as the scripts are executed.
+│       ├── conversion_methods      \\ Results of processing datasets submitted to conversion methods.
+│       │   |── binary 
+│       │   └── non_binary 
 │       │
-│       ├── benchmarks     \\ Raw results of the probe algorithms on each dataset.
+│       ├── instances_detected     \\ Result of the identified instances performed by each algorithm.
+|       |
+│       ├── pair_plot              \\ Pair plots from the dataset evaluation 
 │       │
-│       └── analysis       \\ Plots and tables generated for the paper.
-│           ├── CLUSTERING   \\ Dendrogram images of dataset clustering.
-│           ├── DIFFICULTY_PLOTS \\ Difficulty scatter plots.
-│           └── tables       \\ Ranking tables and the proposed "core set".
+│       └── visualization_output   \\ Projection of datasets with the worst results.
+
 │
 └── README.md              \\ Project overview, setup instructions, and documentation.
 ```
@@ -77,27 +84,25 @@ Given the large number of datasets originating from classification tasks with no
 
 ## Execution Instructions
 
-This repository contains the scripts to analyze the datasets. The original (raw) datasets are not included, but the download scripts can be found in `files/database/raw/`. As a first step, it is necessary to run the profiling and benchmarking scripts:
+This repository contains the scripts to analyze the datasets. Versions of the original datasets are included in directory `files/datasets/`. As a first step, it is necessary to run the scripts (**based_experiments**) in this order:
 
-PrepareDataset.ipynb
-Evaluate.py
-Metrics.ipynb
-PairPlot_metrics.ipynb
+  * **PrepareDataset.ipynb**
+  * **Evaluate.py**
+  * **Metrics.ipynb**
+  * **PairPlot_metrics.ipynb**
+  * **Visualization.ipynb**
 
-  * **Run\_Profiler.ipynb**
-  * **Calculate\_Metrics.py**
+The first script normalizes the datasets (storing them in `files/datasets/evaluation/processed/`) and the second script (`Evaluate.py`) executes all algorithms over the datasets. The third script `Metrics.ipynb` create the metrics used in this research. The last script create plots to visualize the datas.
 
-The first script normalizes the datasets (storing them in `files/database/processed/`) and the second generates the `dataset_metrics.csv` file (in `files/results/profiles/`), which is the basis for all other analyses.
+There is a second set of scripts responsible for analyzing the conversion methods:
 
-For each processed dataset, the scripts in `files/code/benchmarking/` must be run to generate the raw results of the probe algorithms. The results should be stored in `files/results/benchmarks/`.
+  * **Convert_Methods.ipynb**
+  * **EvaluateConvert.py**
+  * **Metrics.ipynb**
+  * **Critical_Diagram.ipynb**
 
-To group the results and generate the final analyses, the scripts in `files/code/analysis` should be executed in the following order:
+Initially, it is necessary to apply the normalization processes and the application of the conversion methods (**Convert_Methods.ipynb**). Subsequently, the `EvaluateConvert.py` script executes the algorithms on the subset of datasets in the **files\datasets\conversion_methods** directory. The `Metrics.ipynb` script measures the metric values of the results of each algorithm, and the `Critical_Diagram.ipynb` script creates the representation of the critical difference diagrams (CDD).
 
-  * **Cluster\_Datasets.ipynb**
-  * **Redundancy\_Matrix.ipynb**
-  * **Plot\_Difficulty.ipynb**
-
-The **Cluster\_Datasets.ipynb** file uses the `dataset_metrics.csv` and benchmark results to generate the dataset clusters and identify the "Core Set". The **Redundancy\_Matrix.ipynb** generates the rank correlation diagrams. The last file, **Plot\_Difficulty.ipynb**, trains the regression model and plots the datasets on a "Difficulty" vs. "Outlier Type" chart.
 
 ## Keywords
 

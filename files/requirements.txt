@@ -1,0 +1,22 @@
+# Core data & ML
+pandas>=1.3
+numpy>=1.21
+scikit-learn>=1.0
+scipy>=1.7
+pyod>=2.0.5
+
+# Utilities
+tqdm>=4.60
+pillow>=8.0
+opencv-python>=4.5
+
+# Visualization
+plotly>=5.0
+kaleido>=0.2
+matplotlib>=3.4
+
+# Dimensionality reduction
+umap-learn>=0.5.3
+
+# Statistical post-hoc tests / CD diagram helpers
+scikit-posthocs>=0.6.7

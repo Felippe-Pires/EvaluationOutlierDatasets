@@ -1,0 +1,2 @@
+heart_disease - class 0 - 4 (0 não há doença)
+wine - class - (qualidade do vinho <5 ruim >5 bom)

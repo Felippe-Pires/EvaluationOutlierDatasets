@@ -97,11 +97,11 @@ This section is for storing the code used in the project. To organize the source
 - **conversion_methods**
 	- This directory stores the source code for experiments on methods for converting classification datasets into outlier detection datasets. The methods used are described in __Section 1 - Introduction__. The conversion methods evaluated are:
 
-    -> DOWN (Class Downsample): One or more minority classes are selected as potential anomalies, and their instances are reduced to simulate outlying cases.
+    -> __DOWN__ (Class Downsample): One or more minority classes are selected as potential anomalies, and their instances are reduced to simulate outlying cases.
 
-    -> EXC (Class Exclusion): Some classes are removed from the original dataset to obtain a binary representation;
+    -> __EXC__ (Class Exclusion): Some classes are removed from the original dataset to obtain a binary representation;
 
-    -> GRO (Class Grouping): some classes are merged to transform a multiclass dataset into a binary one;    
+    -> __GRO__ (Class Grouping): some classes are merged to transform a multiclass dataset into a binary one;    
     
 
 ### > datasets

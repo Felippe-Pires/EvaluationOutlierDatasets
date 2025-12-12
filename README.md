@@ -83,7 +83,7 @@ EvaluateDatasets
 └── README.md              \\ Project overview, setup instructions, and documentation.
 ```
 
-## Sections
+## Repository Organization
 
 The project sections were divided according to the experiments performed. To facilitate locating the information, a brief description of the information stored in the directories is provided below:
 

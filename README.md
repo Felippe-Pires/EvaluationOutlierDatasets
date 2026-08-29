@@ -4,34 +4,49 @@ by Felippe P. Ferreira, and Robson L. F. Cordeiro
 
 ## Abstract
 
-> Progress in outlier detection algorithms relies on robust validation, which is supported by high-quality datasets. However, the common practice of adapting datasets for this purpose can introduce flaws, falsely simulating instances as outliers. Despite the large number of available datasets from different subjects, are they suitable for outlier detection tasks? Several datasets used are adaptations of classification problems, containing classes that are not imbalanced, differing from the characteristics of a dataset with outliers. This paper aims to evaluate datasets widely used in detection algorithm comparisons, seeking to identify: (i) which datasets perform worst when subjected to outlier detection algorithms; (ii) analyze in detail the worst-performing datasets by comparing the labels assigned to the instances; and (iii) verify whether specific dataset adaptation strategies can impact algorithm performance. Through experiments with 52 datasets cited in various scientific studies, along with 22 outlier detection algorithms, we found that some datasets present ground truth inconsistent with the results obtained and the characteristics of an outlier instance. The instances in these problematic datasets exhibit characteristics not expected of outlier instances. Furthermore, the use of techniques such as downsampling in conjunction with class clustering produces datasets with better outlier detection results. To aid the experiments, a methodology was developed to ensure an objective evaluation of each dataset.
+> How to collect and preprocess a dataset to support the development and validation of outlier de-
+tection techniques? How suitable are the datasets often used in the literature for this purpose?
+Progress in outlier detection relies on robust validation supported by datasets with high-quality
+ground-truth labels. However, many labeled datasets available in public repositories contain more
+than two classes and do not present natural class imbalance, which deviates from the characteris-
+tics of a dataset with outliers. A common practice is to adapt these datasets for outlier detection, by
+generating simulated outliers through downsampling, grouping or exclusion of classes and the use
+of other techniques that often introduce errors. This paper aims to answer the two questions above,
+by: (i) evaluating datasets widely used to validate outlier detection algorithms, and; (ii) comparing
+the most common adaptation techniques to learn best practices for data collection and prepro-
+cessing in outlier detection scenarios. Our main contributions are: C1 – Evaluation of Datasets:
+we assess 50 datasets that are largely employed and famous in the literature through an extensive
+experimental evaluation supported by 22 of the best-known detectors of outliers. Our results re-
+veal a list of datasets presenting questionable ground truth with potential negative effects in any
+algorithm validated on these data. C2 – Best Practices: we evaluate the impact of common data
+adaptation techniques on the ground-truth label quality, and learn that the use of downsampling
+combined with grouping of classes often outperforms other options. C3 – Methodology: we also
+introduce a novel methodology to evaluate any new dataset for outlier detection. It features a se-
+quential execution flow that enables us to verify both objective aspects related to the dataset’s char-
+acteristics and subjective elements associated with the data creation process. Our work supports
+future progress in outlier detection by providing valuable guidelines for the selection, generation
+and preprocessing of data used to develop new algorithms or validate the existing ones.
 
 ## Overview
 
-This project provides a comprehensive analysis of the properties of popular benchmark datasets used in outlier detection research. While most research focuses on comparing *algorithms*, this work focuses on evaluating the *datasets*.
-
-The study evaluates 52 commonly used benchmark datasets from outlier detection publications, submitted to 22 outlier detection algorithms, identifying problems in the labels assigned to some instances.
-
-To conduct the experiments, a methodology was created to identify datasets that presented problems in the ground-truth attributed to the instances. In addition to the results provided by the selected algorithms, cluster analyses of the instances and analyses of the dataset creation process were performed.
-
-Complementarily, an analysis was conducted on methods used to transform datasets originally for classification into outlier detection datasets.
+This work proposes a methodology for assessing the reliability of ground-truth labels in outlier-detection benchmarks. The experimental study evaluates 50 datasets using 22 outlier-detection algorithms representing 10 detection principles. It also examines strategies for converting classification datasets into anomaly-detection benchmarks, using downsampling, class grouping, class exclusion, and combinations of grouping or exclusion with downsampling. The results show that creating class imbalance does not necessarily produce genuine anomalies. By combining Binary Evaluation with visual, neighborhood-density, and dataset-provenance analyses, the methodology identified 12 datasets whose labels received limited empirical support and are therefore not recommended for algorithm validation without further investigation. Four of these datasets—wpbc, vertebral, wilt, and amazon—were examined in detail to investigate how their origin, preprocessing, and conversion procedures may have affected the reliability of their labels.
 
 ## Key Contributions
 
 This research offers three main contributions to the field of outlier detection:
 
-### 1\. Dataset Ground Truth Evaluation
+### 1\. Evaluation of Datasets
 
-As our main contribution, the results of the evaluation of 52 datasets that were used in 22 detection algorithms show that some of the datasets, widely used in research in the area, have characteristics that are not consistent with the anomaly detection approach, in addition to producing results, together with the algorithms, inferior to other datasets. Through comparisons, it is possible to identify datasets that present problems, preventing algorithms from performing detections correctly.
+We assess the quality of 47 datasets that are largely employed and famous in the literature through an extensive experimental evaluation supported by 22 of the best-known outlier detectors. Our results reveal a list of datasets having questionable ground truth with potential negative effects in any algorithm validated on these data. Hence, we argue that the datasets in our list should no longer be used by the outlier detection community.
 
-### 2\. Process Methodology
+### 2\. Best Practices
 
-To evaluate this large set of datasets and algorithms, a methodology was developed to simplify the evaluation process for each dataset, allowing for comparison of results. The methodology features a sequential execution flow that enables us to verify both objective aspects related to the dataset’s characteristics and subjective elements associated with information from the data creation process.
+We evaluate the impact of common data adaptation techniques on the ground-truth label quality of the datasets, such as grouping and excluding classes and downsampling their instances. Our experimental results indicate that the use of downsampling combined with grouping of classes often outperforms other options.
 
-### 3\. Analysis of Dataset Conversion Strategies
+### 3\. Methodology
 
-Given the large number of datasets originating from classification tasks with no pronounced imbalance of the classes, this paper carried out a comparative analysis of techniques for converting classification data into outlier-detection data, aiming to identify if there is any technique that produces datasets of better quality than others. Our results indicate that downsampling with class grouping usually outperforms other options.
-
+We also introduce a novel methodology to evaluate any new dataset for outlier detection. It features a sequential execution flow that enables us to verify both objective aspects related to the dataset’s characteristics and subjective elements associated with the data creation process. Our methodology simplifies and standardizes the evaluation of a dataset and
+also allows comparing the results obtained from distinct datasets.
 
 ## Directory Tree
 
@@ -136,9 +151,10 @@ Initially, it is necessary to apply the normalization processes and the applicat
 
 ## Keywords
 
-  * Outlier Detection
   * Data Quality
+  * Outlier Detection
   * Dataset Evaluation
+  * Best Practices for Data Collection and Preprocessing
 
 ## Authors
 

@@ -1,4 +1,4 @@
-# Evaluation of Datasets for Outlier Detection
+# Evaluation of Outlier Detection Datasets: ground-truth label quality assessment and best practices for data collection and preprocessing
 
 by Felippe P. Ferreira, and Robson L. F. Cordeiro
 
